@@ -1019,6 +1019,10 @@ button::-moz-focus-inner, input::-moz-focus-inner {border: 0;padding: 0;}
 .skill-bars li .progress {background: #313131;position: relative;height: 100%;}
 .skill-bars li .progress span {position: absolute;right: -15px;top: -3.6rem;display: block;font-family: "poppins-regular", sans-serif;color: white;font-size: 1.1rem;line-height: 1;background: #313131;padding: .6rem .6rem;border-radius: 3px;}
 .skill-bars li .progress span::after {position: absolute;left: 50%;bottom: -5px;margin-left: -5px;border-right: 5px solid transparent;border-left: 5px solid transparent;border-top: 5px solid #313131;content: "";}
+
+.skill-bars li.progres-sql .progress {bottom: -3.6rem;top: auto;}
+.skill-bars li.progres-sql .progress span::after {bottom: 23px;transform: rotate(180deg);}
+
 .skill-bars li .progress.angular span{top:1.6rem}
 .skill-bars li .progress.angular span::after{display: none;}
 .skill-bars li .progress.angular span::before {position: absolute;left: 50%;top: -5px;margin-left: -5px;border-right: 5px solid transparent;border-left: 5px solid transparent;border-top: 5px solid #313131;content: "";transform: rotate(180deg);}
