@@ -129,7 +129,7 @@ const ExperienceSection = () => {
   }, []);
 
   return (
-    <section id="experience" ref={ref} className="section-padding bg-secondary/30">
+    <section id="experience" ref={ref} className="section-padding bg-secondary/30 overflow-x-hidden">
       <div className="section-container">
         <h2 data-exp-title className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-12">
           Esperienza

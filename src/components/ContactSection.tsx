@@ -120,7 +120,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" ref={ref} className="section-padding">
+    <section id="contact" ref={ref} className="section-padding overflow-x-hidden">
       <div className="section-container">
         <h2 data-contact-title className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-4">
           Contatti
