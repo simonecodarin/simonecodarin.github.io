@@ -119,7 +119,7 @@ const AboutSection = () => {
 
                 {/* Tua foto a tutto tondo */}
                 <img
-                  src="../src/assets/image/io.jpg"
+                  src="/image/io.jpg"
                   alt="Simone Codarin"
                   className="w-full h-full object-cover relative z-0"
                   style={{ objectPosition: "center 15%" }}
