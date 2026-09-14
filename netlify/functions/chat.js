@@ -3,22 +3,27 @@ import { GoogleGenAI } from '@google/genai';
 const apiKey = process.env.GEMINI_API_KEY;
 const ai = new GoogleGenAI({ apiKey });
 
+const corsHeaders = {
+  'Access-Control-Allow-Origin': 'https://simonecodarin.github.io',
+  'Access-Control-Allow-Headers': 'Content-Type',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+};
+
 export const handler = async (event) => {
+  // Gestione preflight
+  if (event.httpMethod === 'OPTIONS') {
+    return { statusCode: 200, headers: corsHeaders, body: '' };
+  }
+
   if (event.httpMethod !== 'POST') {
-    return {
-      statusCode: 405,
-      body: JSON.stringify({ error: 'Method not allowed' }),
-    };
+    return { statusCode: 405, headers: corsHeaders, body: JSON.stringify({ error: 'Method not allowed' }) };
   }
 
   try {
     const { message } = JSON.parse(event.body);
 
     if (!message) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: 'Messaggio mancante' }),
-      };
+      return { statusCode: 400, headers: corsHeaders, body: JSON.stringify({ error: 'Messaggio mancante' }) };
     }
 
     const systemInstruction = `
@@ -47,14 +52,12 @@ export const handler = async (event) => {
 
     return {
       statusCode: 200,
+      headers: corsHeaders,
       body: JSON.stringify({ reply: response.text }),
     };
 
   } catch (error) {
     console.error('Errore IA:', error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Errore interno del server' }),
-    };
+    return { statusCode: 500, headers: corsHeaders, body: JSON.stringify({ error: 'Errore interno del server' }) };
   }
 };
