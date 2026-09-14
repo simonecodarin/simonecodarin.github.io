@@ -193,7 +193,7 @@ const HeroSection = () => {
         <div
           data-hero-orb
           ref={orbRef}
-          className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-primary/[0.06] blur-3xl"
+          className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[min(600px,90vw)] h-[min(600px,90vw)] rounded-full bg-primary/[0.06] blur-3xl"
         />
         <div
           data-hero-orb
