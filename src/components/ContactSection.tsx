@@ -16,12 +16,12 @@ const SocialCard = ({ href, icon: Icon, label, sub }: { href: string; icon: any;
       rel="noopener noreferrer"
       ref={ref as any}
       data-contact-social
-      className="glass-card p-3 flex items-center gap-4 group transition-shadow duration-300"
+      className="glass-card p-3 flex items-center gap-4 group transition-shadow duration-300 min-w-0"
     >
-      <Icon size={22} className="text-primary" />
-      <div>
-        <p className="font-semibold text-foreground text-sm group-hover:text-primary transition-colors">{label}</p>
-        <p className="text-xs text-muted-foreground">{sub}</p>
+      <Icon size={22} className="text-primary shrink-0" />
+      <div className="min-w-0">
+        <p className="font-semibold text-foreground text-sm group-hover:text-primary transition-colors truncate">{label}</p>
+        <p className="text-xs text-muted-foreground truncate">{sub}</p>
       </div>
     </a>
   );

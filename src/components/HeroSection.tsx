@@ -188,7 +188,6 @@ const HeroSection = () => {
       ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center pt-[var(--nav-height)] overflow-hidden"
     >
-      {/* Animated background orbs */}
       <div className="absolute inset-0 pointer-events-none">
         <div
           data-hero-orb

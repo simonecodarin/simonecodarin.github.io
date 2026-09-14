@@ -147,14 +147,14 @@ const ExperienceSection = () => {
                 </div>
                 <div data-exp-card className="glass-card p-6 sm:p-8 transition-shadow duration-300">
                   <div className="flex items-start justify-between flex-wrap gap-2 mb-3">
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 min-w-0">
                       <Briefcase size={18} className="text-primary shrink-0" />
-                      <div>
-                        <h3 className="font-bold text-foreground text-base">{exp.company}</h3>
-                        <p className="text-sm text-muted-foreground">{exp.role}</p>
+                      <div className="min-w-0">
+                        <h3 className="font-bold text-foreground text-base truncate">{exp.company}</h3>
+                        <p className="text-sm text-muted-foreground truncate">{exp.role}</p>
                       </div>
                     </div>
-                    <span className="text-xs font-medium text-muted-foreground bg-secondary px-3 py-1 rounded-full">
+                    <span className="text-xs font-medium text-muted-foreground bg-secondary px-3 py-1 rounded-full shrink-0">
                       {exp.period}
                     </span>
                   </div>
