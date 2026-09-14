@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { Bot } from 'lucide-react';
 
 const ACCENT = '#5B4FFF';
 const ACCENT_HOVER = '#4A3FE8';
@@ -335,6 +336,28 @@ export default function AIChatWidget() {
         .simai-send:active:not(:disabled) { transform: scale(0.94); }
         .simai-send:disabled { opacity: 0.4; cursor: not-allowed; }
         .simai-send:focus-visible { outline: 2px solid var(--simai-accent); outline-offset: 2px; }
+
+        .simai-launcher-glyph-mobile { display: none; }
+        .simai-launcher-glyph-desktop { display: flex; }
+
+        @media (max-width: 480px) {
+          .simai-launcher {
+            padding: 0;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            justify-content: center;
+          }
+          .simai-launcher-text { display: none; }
+          .simai-launcher-glyph-desktop { display: none; }
+          .simai-launcher-glyph-mobile {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            background: var(--simai-accent);
+          }
+        }
+
       `}</style>
 
       {isOpen && (
@@ -400,8 +423,11 @@ export default function AIChatWidget() {
 
       {!isOpen && (
         <button className="simai-launcher" onClick={() => setIsOpen(true)} aria-label="Apri l'assistente virtuale">
-          <span className="simai-launcher-glyph">{'</>'}</span>
-          <span>Chat IA</span>
+          <span className="simai-launcher-glyph simai-launcher-glyph-mobile">
+            <Bot size={18} />
+          </span>
+          <span className="simai-launcher-glyph simai-launcher-glyph-desktop">{'</>'}</span>
+          <span className="simai-launcher-text">Assistente IA</span>
         </button>
       )}
     </div>
