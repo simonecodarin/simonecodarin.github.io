@@ -45,8 +45,12 @@ export default function AIChatWidget() {
     setMessages((prev) => [...prev, { sender: 'user', text: userMsg }]);
     setLoading(true);
 
+    const API_URL = window.location.hostname === 'simonecodarin.github.io'
+      ? 'https://simonecodarin.netlify.app/.netlify/functions/chat'
+      : '/.netlify/functions/chat';
+
     try {
-      const res = await fetch('/.netlify/functions/chat', {
+      const res = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userMsg })
