@@ -248,8 +248,8 @@ const HeroSection = () => {
           </div>
           <div data-hero-btn>
             <MagneticButton
-              href="/Simone_Codarin_CV.pdf"
-              download="Simone_Codarin_CV.pdf"
+              href="/doc/Codarin_Simone_CV.pdf"
+              download="Codarin_Simone_CV.pdf"
               variant="outline"
             >
               <FileDown size={16} className="mr-2" />
