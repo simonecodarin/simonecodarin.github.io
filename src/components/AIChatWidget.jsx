@@ -401,7 +401,7 @@ export default function AIChatWidget() {
       {!isOpen && (
         <button className="simai-launcher" onClick={() => setIsOpen(true)} aria-label="Apri l'assistente virtuale">
           <span className="simai-launcher-glyph">{'</>'}</span>
-          <span>Assistente IA</span>
+          <span>Chat IA</span>
         </button>
       )}
     </div>
