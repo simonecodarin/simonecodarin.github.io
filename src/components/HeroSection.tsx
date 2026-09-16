@@ -27,9 +27,8 @@ const MagneticButton = ({
   const ref = useMagnetic(0.3);
   const classes =
     variant === "primary"
-      ? "magnetic-btn px-7 py-3.5 rounded-full bg-primary text-primary-foreground font-semibold text-sm shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:brightness-110 transition-all duration-200"
-      : "magnetic-btn px-7 py-3.5 rounded-full border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-all duration-200";
-
+  ? "magnetic-btn px-7 py-3.5 rounded-full bg-[#2f6fc4] text-primary-foreground font-semibold text-sm shadow-lg shadow-[#2f6fc4]/20 hover:shadow-[#2f6fc4]/30 hover:brightness-110 transition-all duration-200"
+  : "magnetic-btn px-7 py-3.5 rounded-full border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-all duration-200";
   return (
     <a href={href} download={download} ref={ref as any} className={classes}>
       {children}

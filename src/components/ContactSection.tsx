@@ -176,6 +176,7 @@ const ContactSection = () => {
             <div data-contact-btn className="mt-2">
               <button
                 type="submit"
+                aria-label="Invia messaggio"
                 ref={btnRef as any}
                 className={`magnetic-btn self-start px-7 py-3 rounded-full font-semibold text-sm shadow-lg transition-all duration-300 ${sent
                     ? "bg-emerald-600 text-white shadow-emerald-600/30 scale-[1.02]"

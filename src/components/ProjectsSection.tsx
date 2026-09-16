@@ -74,10 +74,10 @@ const ProjectCard = ({
         </span>
         {!project.placeholder && (
           <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <button className="p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors" onClick={() => window.open(project.linkDemo, "_blank")}>
+            <button className="p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors" onClick={() => window.open(project.linkDemo, "_blank")} aria-label="Apri demo live">
               <ExternalLink size={14} />
             </button>
-            <button className="p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors" onClick={() => window.open(project.linkCode, "_blank")}>
+            <button className="p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors" onClick={() => window.open(project.linkCode, "_blank")} aria-label="Visualizza codice">
               <Github size={14} />
             </button>
           </div>
