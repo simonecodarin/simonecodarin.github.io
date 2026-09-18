@@ -11,7 +11,7 @@ const projects = [
     title: "Restyling sito web della Fitup",
     description: "Ho voluto rifare il design del sito web della Fitup per renderlo più moderno e responsive.",
     tags: ["Vue.js", "Tailwind CSS", "GSAP", "Responsive Design"],
-    image: "/image/projects/fitup-restyle.png",
+    image: "/image/projects/fitup-restyle.webp",
     linkCode: "https://github.com/simonecodarin/restyling_sito_fitup",
     linkDemo: "https://restyling-site-fitup.netlify.app/",
     color: "from-primary/15 to-[hsl(190,70%,50%)]/10",
@@ -20,7 +20,7 @@ const projects = [
     title: "Sistema di Gestione Ordini",
     description: "Web app per la ricerca di film tramite API di TMDB. Include filtri per genere e la gestione di una watchlist personale salvata su LocalStorage.",
     tags: ["Vue.js", "Tailwind CSS", "GSAP", "Responsive Design", "Local Storage"],
-    image: "/image/projects/film-scope.png",
+    image: "/image/projects/film-scope.webp",
     linkCode: "https://github.com/simonecodarin/film-scope",
     linkDemo: "https://film-scope.netlify.app/",
     color: "from-[hsl(190,70%,50%)]/15 to-primary/10",
@@ -65,9 +65,7 @@ const ProjectCard = ({
         <div
           className="absolute inset-0 opacity-[1] hover:opacity-[0.8] transition-opacity duration-300 bg-cover bg-center"
           onClick={() => window.open(project.linkDemo, "_blank")}
-          style={{
-            backgroundImage: `url(${project.image})`,
-          }}
+          style={{backgroundImage: `url(${project.image})`}}
         />
         <span className="text-4xl font-black text-foreground/[0.06] tracking-tighter select-none">
           {String(index + 1).padStart(2, "0")}
