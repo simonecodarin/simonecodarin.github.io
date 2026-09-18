@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Users, Gamepad2, Code2, Sparkles, Volleyball } from "lucide-react";
+import { Gamepad2, Sparkles, Volleyball } from "lucide-react";
 import { useTilt } from "@/hooks/useGsap";
 
 gsap.registerPlugin(ScrollTrigger);

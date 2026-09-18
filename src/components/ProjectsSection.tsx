@@ -63,9 +63,9 @@ const ProjectCard = ({
       >
         {/* Immagine di sfondo della card */}
         <div
-          className="absolute inset-0 opacity-[1] hover:opacity-[0.8] transition-opacity duration-300 bg-cover bg-center"
-          onClick={() => window.open(project.linkDemo, "_blank")}
-          style={{backgroundImage: `url(${project.image})`}}
+          className={`absolute inset-0 opacity-[1] hover:opacity-[0.8] transition-opacity duration-300 bg-cover bg-center`}
+          onClick={() => !project.placeholder && project.linkDemo && window.open(project.linkDemo, "_blank")}
+          style={project.image ? { backgroundImage: `url(${project.image})` } : undefined}
         />
         <span className="text-4xl font-black text-foreground/[0.06] tracking-tighter select-none">
           {String(index + 1).padStart(2, "0")}

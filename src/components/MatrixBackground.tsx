@@ -52,12 +52,13 @@ const MatrixBackground = () => {
 
       const isDarkMode = document.documentElement.classList.contains("dark") || document.body.classList.contains("dark");
 
-      const bgColor = isDarkMode ? "hsl(220, 20%, 6%)" : "hsl(210, 40%, 96%)";
+      const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--background').trim();
       const particleColor = isDarkMode ? "hsla(150, 70%, 55%, 0.6)" : "hsla(150, 60%, 35%, 0.4)";
       const lineColorBase = isDarkMode ? "150, 70%, 55%" : "150, 60%, 35%";
       const highlightHue = isDarkMode ? "150, 90%, 70%" : "150, 90%, 45%"; // colore acceso hover
-
-      ctx.fillStyle = bgColor;
+      
+      ctx.fillStyle = `hsl(${bgColor})`;
+      // ctx.fillStyle = bgColor;
       ctx.fillRect(0, 0, width, height);
 
       const mx = mouseRef.current.x;
