@@ -21,7 +21,7 @@ const projects = [
     description: "Web app per la ricerca di film tramite API di TMDB. Include filtri per genere e la gestione di una watchlist personale salvata su LocalStorage.",
     tags: ["Vue.js", "Tailwind CSS", "GSAP", "Responsive Design", "Local Storage"],
     image: "/image/projects/film-scope.webp",
-    linkCode: "https://github.com/simonecodarin/film-scope.webp",
+    linkCode: "https://github.com/simonecodarin/film-scope",
     linkDemo: "https://film-scope.netlify.app/",
     color: "from-[hsl(190,70%,50%)]/15 to-primary/10",
   },

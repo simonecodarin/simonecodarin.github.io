@@ -121,6 +121,11 @@ const AboutSection = () => {
                 <img
                   src="/image/Io.webp"
                   alt="Simone Codarin"
+                  width={220}
+                  height={220}
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
                   className="w-full h-full object-cover relative z-0"
                   style={{ objectPosition: "center 15%" }}
                 />
