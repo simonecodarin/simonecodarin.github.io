@@ -17,11 +17,11 @@ const projects = [
     color: "from-primary/15 to-[hsl(190,70%,50%)]/10",
   },
   {
-    title: "Sistema di Gestione Ordini",
+    title: "Film scope",
     description: "Web app per la ricerca di film tramite API di TMDB. Include filtri per genere e la gestione di una watchlist personale salvata su LocalStorage.",
     tags: ["Vue.js", "Tailwind CSS", "GSAP", "Responsive Design", "Local Storage"],
     image: "/image/projects/film-scope.webp",
-    linkCode: "https://github.com/simonecodarin/film-scope",
+    linkCode: "https://github.com/simonecodarin/film-scope.webp",
     linkDemo: "https://film-scope.netlify.app/",
     color: "from-[hsl(190,70%,50%)]/15 to-primary/10",
   },
