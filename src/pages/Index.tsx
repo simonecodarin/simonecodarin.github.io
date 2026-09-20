@@ -1,19 +1,20 @@
-import { useState } from "react";
+import { useState, Suspense, lazy } from "react";
 import Preloader from "@/components/Preloader";
 import MatrixBackground from "@/components/MatrixBackground";
 import CustomCursor from "@/components/CustomCursor";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
-import ProjectsSection from "@/components/ProjectsSection";
-import ExperienceSection from "@/components/ExperienceSection";
-import SkillsSection from "@/components/SkillsSection";
-import EducationSection from "@/components/EducationSection";
-import PricingSection from "@/components/Pricingsection";
-import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
-import AIChatWidget from "@/components/AIChatWidget";
+// Sezioni sotto la piega: caricate solo quando servono, non nel bundle iniziale
+const ProjectsSection = lazy(() => import("@/components/ProjectsSection"));
+const ExperienceSection = lazy(() => import("@/components/ExperienceSection"));
+const SkillsSection = lazy(() => import("@/components/SkillsSection"));
+const EducationSection = lazy(() => import("@/components/EducationSection"));
+const PricingSection = lazy(() => import("@/components/Pricingsection"));
+const ContactSection = lazy(() => import("@/components/ContactSection"));
+const AIChatWidget = lazy(() => import("@/components/AIChatWidget"));
 
 const Index = () => {
   const [loaded, setLoaded] = useState(false);
@@ -25,17 +26,26 @@ const Index = () => {
       <CustomCursor />
       <MatrixBackground />
       <Navbar />
-      <HeroSection />
-      <AboutSection />
-      <ProjectsSection />
-      <ExperienceSection />
-      <SkillsSection />
-      <EducationSection />
-      <PricingSection />
-      <ContactSection />
+
+      <main>
+        <HeroSection />
+        <AboutSection />
+
+        <Suspense fallback={null}>
+          <ProjectsSection />
+          <ExperienceSection />
+          <SkillsSection />
+          <EducationSection />
+          <PricingSection />
+          <ContactSection />
+        </Suspense>
+      </main>
+
       <Footer />
 
-      <AIChatWidget />
+      <Suspense fallback={null}>
+        <AIChatWidget />
+      </Suspense>
     </>
   );
 };

@@ -120,6 +120,8 @@ const AboutSection = () => {
                 {/* Tua foto a tutto tondo */}
                 <img
                   src="/image/Io.webp"
+                  srcSet="/image/Io-220.webp 220w, /image/Io-330.webp 330w, /image/Io-440.webp 440w"
+                  sizes="(min-width: 640px) 224px, 192px"
                   alt="Simone Codarin"
                   width={220}
                   height={220}
