@@ -130,7 +130,8 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
       <div ref={contentRef} className="w-full max-w-lg px-6 flex flex-col items-center gap-8">
         <div className="text-center">
           <span className="text-3xl font-black tracking-tight text-white">
-            SC<span className="text-[hsl(213,70%,55%)]">.</span>
+            &lt;S<span className="text-[#03D92D]">C/&gt;</span>
+            <span className="text-primary">.</span>
           </span>
         </div>
 

@@ -11,6 +11,7 @@ const navLinks = [
   { label: "Contatti", href: "#contact" },
 ];
 
+
 const Navbar = () => {
   const [dark, setDark] = useState(() => {
     if (typeof window !== "undefined") {
@@ -86,7 +87,8 @@ const Navbar = () => {
     >
       <div className="section-container flex items-center justify-between h-[var(--nav-height)]">
         <a data-nav-logo href="#" className="text-lg font-bold tracking-tight text-foreground">
-          SC<span className="text-primary">.</span>
+          &lt;S<span className="text-[#0A8F2F] dark:text-[#03D92D]">C/&gt;</span>
+          <span className="text-primary">.</span>
         </a>
 
         {/* Desktop */}
