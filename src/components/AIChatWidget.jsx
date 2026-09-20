@@ -7,6 +7,35 @@ const ACCENT_HOVER = '#4A3FE8';
 const ONLINE = '#34D399';
 const INK = '#12131A';
 
+const THEME_ATTRS = ['data-theme', 'data-bs-theme', 'data-mode', 'data-color-scheme'];
+
+function parseRgb(str) {
+  const m = str.match(/rgba?\(([^)]+)\)/);
+  if (!m) return null;
+  const [r, g, b, a = 1] = m[1].split(/[,\s/]+/).filter(Boolean).map(parseFloat);
+  return { r, g, b, a };
+}
+
+// Capisce se il sito è in dark mode: classe/attributo su <html> o <body>,
+// con fallback sulla luminanza dello sfondo reale e poi sulle preferenze di sistema.
+function detectDark() {
+  const roots = [document.documentElement, document.body];
+  const isMarked = (val) =>
+    roots.some(
+      (el) => el.classList.contains(val) || THEME_ATTRS.some((a) => el.getAttribute(a) === val)
+    );
+
+  if (isMarked('dark')) return true;
+  if (isMarked('light')) return false;
+
+  for (const el of roots) {
+    const c = parseRgb(getComputedStyle(el).backgroundColor);
+    if (c && c.a > 0.5) return 0.299 * c.r + 0.587 * c.g + 0.114 * c.b < 128;
+  }
+
+  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+
 export default function AIChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
@@ -18,13 +47,23 @@ export default function AIChatWidget() {
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
-  // Segue la classe "dark" sul body, sia all'avvio sia quando cambia a runtime
+  // Segue il tema del sito, sia all'avvio sia quando cambia a runtime
   useEffect(() => {
-    const syncTheme = () => setIsDark(document.body.classList.contains('dark'));
-    syncTheme();
-    const observer = new MutationObserver(syncTheme);
-    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-    return () => observer.disconnect();
+    const sync = () => setIsDark(detectDark());
+    sync();
+
+    const observer = new MutationObserver(sync);
+    const opts = { attributes: true, attributeFilter: ['class', 'style', ...THEME_ATTRS] };
+    observer.observe(document.documentElement, opts);
+    observer.observe(document.body, opts);
+
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    mq.addEventListener('change', sync);
+
+    return () => {
+      observer.disconnect();
+      mq.removeEventListener('change', sync);
+    };
   }, []);
 
   useEffect(() => {
