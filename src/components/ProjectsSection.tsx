@@ -28,7 +28,7 @@ const projects = [
   {
     title: "Pokedex",
     description: "Amante dei pokemon ho voluto ricreare il famoso pokedex, a modo mio.",
-    tags: ["Vue.js", "Css", "TypeScript"],
+    tags: ["Vue.js", "Css", "TypeScript", "Local Storage"],
     image: "/image/projects/pokedex.webp",
     linkCode: "https://github.com/simonecodarin/Pokedex",
     linkDemo: "https://full-pokedex.netlify.app/",
