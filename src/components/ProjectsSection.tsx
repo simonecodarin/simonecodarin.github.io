@@ -25,13 +25,15 @@ const projects = [
     linkDemo: "https://film-scope.netlify.app/",
     color: "from-[hsl(190,70%,50%)]/15 to-primary/10",
   },
-  // {
-  //   title: "Dashboard Analytics",
-  //   description:
-  //     "Dashboard di analisi dati con grafici interattivi, filtri avanzati e export in formato multiplo.",
-  //   tags: ["Vue.js 3", "Tailwind CSS", "Chart.js", "TypeScript"],
-  //   color: "from-primary/10 to-[hsl(260,60%,55%)]/10",
-  // },
+  {
+    title: "Pokedex",
+    description: "Amante dei pokemon ho voluto ricreare il famoso pokedex, a modo mio.",
+    tags: ["Vue.js", "Css", "TypeScript"],
+    image: "/image/projects/pokedex.webp",
+    linkCode: "https://github.com/simonecodarin/Pokedex",
+    linkDemo: "https://full-pokedex.netlify.app/",
+    color: "from-primary/10 to-[hsl(260,60%,55%)]/10",
+  },
   {
     title: "In Arrivo...",
     description:
