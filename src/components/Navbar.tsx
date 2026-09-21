@@ -36,7 +36,6 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Entrance animation
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from("[data-nav-item]", {
@@ -57,7 +56,6 @@ const Navbar = () => {
     return () => ctx.revert();
   }, []);
 
-  // Mobile menu animation
   useEffect(() => {
     if (!mobileRef.current) return;
     if (menuOpen) {
@@ -92,7 +90,6 @@ const Navbar = () => {
           <span className="text-primary">.</span>
         </a>
 
-        {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((l) => (
             <a
@@ -113,8 +110,6 @@ const Navbar = () => {
             {dark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
         </div>
-
-        {/* Mobile */}
         <div className="flex md:hidden items-center gap-2">
           <button
             onClick={() => setDark(!dark)}
@@ -132,8 +127,6 @@ const Navbar = () => {
           </button>
         </div>
       </div>
-
-      {/* Mobile menu */}
       {menuOpen && (
         <div ref={mobileRef} className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border overflow-hidden">
           <div className="section-container py-4 flex flex-col gap-3">

@@ -182,7 +182,6 @@ export default async (req) => {
   }
   const cors = corsHeaders(origin);
 
-  // 2. Preflight CORS
   if (req.method === 'OPTIONS') {
     return new Response(null, { status: 204, headers: cors });
   }
@@ -248,7 +247,6 @@ export default async (req) => {
     return respond(503, { error: 'Assistente temporaneamente non disponibile.' }, cors);
   }
 
-  // 5. Chiamata al modello
   try {
     const response = await getClient().models.generateContent({
       model: MODEL,

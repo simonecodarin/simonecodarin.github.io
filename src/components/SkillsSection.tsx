@@ -12,8 +12,8 @@ const skillCategories = [
     skills: [
       { name: "Vue.js", desc: "Framework principale, Composition API, Pinia" },
       { name: "JavaScript", desc: "Sviluppo logica lato client, ES6+" },
-      { name: "Tailwind CSS", desc: "Styling rapido e responsivo" },
-      { name: "GSAP", desc: "Animazioni web ad alte prestazioni" },
+      { name: "Tailwind Css", desc: "Styling rapido e responsivo" },
+      { name: "Gsap", desc: "Animazioni web ad alte prestazioni" },
     ],
   },
   {
@@ -22,7 +22,7 @@ const skillCategories = [
     skills: [
       { name: ".NET Core", desc: "Sviluppo API e logica server-side" },
       { name: "C#", desc: "Linguaggio principale per il backend" },
-      { name: "API REST", desc: "Progettazione e implementazione servizi web" },
+      { name: "Api Rest", desc: "Progettazione e implementazione servizi web" },
     ],
   },
   {
@@ -76,7 +76,6 @@ const SkillsSection = () => {
           </p>
         </div>
 
-        {/* Griglia a 3 colonne bilanciate */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {skillCategories.map((cat) => (
             <div 

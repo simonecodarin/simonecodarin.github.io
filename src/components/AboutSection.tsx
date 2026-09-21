@@ -24,7 +24,6 @@ const AboutSection = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Photo area
       gsap.from("[data-about-photo]", {
         scale: 0.8,
         opacity: 0,
@@ -34,7 +33,6 @@ const AboutSection = () => {
         scrollTrigger: { trigger: ref.current, start: "top 80%", once: true },
       });
 
-      // Photo border ring rotation
       gsap.to("[data-about-ring]", {
         rotation: 360,
         duration: 20,
@@ -42,7 +40,6 @@ const AboutSection = () => {
         ease: "none",
       });
 
-      // Title clip reveal
       const titleEl = ref.current?.querySelector("[data-about-title]");
       if (titleEl) {
         gsap.set(titleEl, { clipPath: "inset(0 100% 0 0)" });
@@ -54,7 +51,6 @@ const AboutSection = () => {
         });
       }
 
-      // Bio paragraphs
       gsap.from("[data-about-bio]", {
         opacity: 0,
         y: 25,
@@ -65,7 +61,6 @@ const AboutSection = () => {
         scrollTrigger: { trigger: ref.current, start: "top 72%", once: true },
       });
 
-      // Stats counter
       gsap.from("[data-about-stat]", {
         y: 30,
         opacity: 0,
@@ -76,7 +71,6 @@ const AboutSection = () => {
         scrollTrigger: { trigger: ref.current, start: "top 65%", once: true },
       });
 
-      // Passion cards
       gsap.from("[data-about-card]", {
         x: 40,
         opacity: 0,
@@ -102,22 +96,16 @@ const AboutSection = () => {
   return (
     <section id="about" ref={ref} className="section-padding">
       <div className="section-container">
-        {/* Top: Photo + Intro side by side */}
         <div className="grid md:grid-cols-[auto_1fr] gap-10 md:gap-14 items-center mb-16">
-          {/* Profile photo area */}
           <div data-about-photo className="flex justify-center md:justify-start">
             <div className="relative">
-              {/* Rotating decorative ring */}
               <div
                 data-about-ring
                 className="absolute -inset-3 rounded-full border-2 border-dashed border-primary/20"
               />
-              {/* Photo placeholder */}
               <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-full bg-secondary border-2 border-border overflow-hidden flex items-center justify-center relative">
-                {/* Sfumatura decorativa sopra la foto se vuoi un leggero effetto */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-primary/5 pointer-events-none z-10" />
 
-                {/* Tua foto a tutto tondo */}
                 <img
                   src="/image/Io.webp"
                   srcSet="/image/Io-220.webp 220w, /image/Io-330.webp 330w, /image/Io-440.webp 440w"
@@ -132,7 +120,6 @@ const AboutSection = () => {
                   style={{ objectPosition: "center 15%" }}
                 />
 
-                {/* Decorative dot */}
                 <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-primary flex items-center justify-center shadow-lg shadow-primary/30 z-20">
                   <Sparkles size={12} className="text-primary-foreground" />
                 </div>
@@ -140,7 +127,6 @@ const AboutSection = () => {
             </div>
           </div>
 
-          {/* Intro text */}
           <div>
             <h2 data-about-title className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-5">
               Lascia che mi presenti
@@ -163,7 +149,6 @@ const AboutSection = () => {
           </div>
         </div>
 
-        {/* Stats / Pillole informative */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-14">
           {stats.map((s, i) => (
             <div
@@ -179,7 +164,6 @@ const AboutSection = () => {
           ))}
         </div>
 
-        {/* Passions */}
         <div data-about-cards className="grid sm:grid-cols-2 gap-4">
           <TiltCard className="glass-card p-6 flex items-start gap-4">
             <div data-about-card>

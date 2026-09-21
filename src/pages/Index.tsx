@@ -7,7 +7,6 @@ import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import Footer from "@/components/Footer";
 
-// Sezioni sotto la piega: caricate solo quando servono, non nel bundle iniziale
 const ProjectsSection = lazy(() => import("@/components/ProjectsSection"));
 const ExperienceSection = lazy(() => import("@/components/ExperienceSection"));
 const SkillsSection = lazy(() => import("@/components/SkillsSection"));

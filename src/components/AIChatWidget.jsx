@@ -148,7 +148,6 @@ export default function AIChatWidget() {
           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
-        /* --- Pulsante flottante --- */
         .simai-launcher {
           display: flex;
           align-items: center;
@@ -185,7 +184,6 @@ export default function AIChatWidget() {
           flex-shrink: 0;
         }
 
-        /* --- Pannello --- */
         .simai-panel {
           width: 380px;
           max-width: calc(100vw - 32px);
@@ -208,7 +206,6 @@ export default function AIChatWidget() {
           to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* --- Header --- */
         .simai-header {
           background: var(--simai-header-bg);
           color: var(--simai-header-text);
@@ -276,7 +273,6 @@ export default function AIChatWidget() {
         .simai-close:hover { background: rgba(255,255,255,0.1); color: #fff; }
         .simai-close:focus-visible { outline: 2px solid var(--simai-accent); outline-offset: 2px; }
 
-        /* --- Messaggi --- */
         .simai-messages {
           flex: 1;
           overflow-y: auto;
@@ -334,7 +330,6 @@ export default function AIChatWidget() {
           30% { transform: translateY(-4px); opacity: 1; }
         }
 
-        /* --- Input --- */
         .simai-input-row {
           background: var(--simai-input-area-bg);
           border-top: 1px solid var(--simai-border);

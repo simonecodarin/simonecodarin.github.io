@@ -42,8 +42,6 @@ const MatrixBackground = () => {
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    // Su mobile: meno particelle (ma non pochissime) e raggio di connessione più corto,
-    // così l'effetto resta visibile senza pesare sulla CPU
     const particlesCount = Math.floor((width * height) / (isMobile ? 20000 : 15000));
     const CONNECTION_DISTANCE = isMobile ? 85 : 120;
     const MOUSE_RADIUS = isMobile ? 100 : 150;
@@ -100,7 +98,6 @@ const MatrixBackground = () => {
         ctx.fillStyle = isNearMouse ? `hsla(${highlightHue}, 0.9)` : particleColor;
         ctx.fill();
 
-        // Connessioni attive ovunque, solo con raggio ridotto su mobile
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const dx = p.x - p2.x;

@@ -36,7 +36,6 @@ const ContactSection = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title clip reveal
       const titleEl = ref.current?.querySelector("[data-contact-title]");
       if (titleEl) {
         gsap.set(titleEl, { clipPath: "inset(0 100% 0 0)" });
@@ -48,7 +47,6 @@ const ContactSection = () => {
         });
       }
 
-      // Form fields slide up one by one
       gsap.from("[data-contact-field]", {
         y: 30,
         opacity: 0,
@@ -59,7 +57,6 @@ const ContactSection = () => {
         scrollTrigger: { trigger: ref.current, start: "top 75%", once: true },
       });
 
-      // Social cards slide in from right
       gsap.from("[data-contact-social]", {
         x: 50,
         opacity: 0,
@@ -70,7 +67,6 @@ const ContactSection = () => {
         scrollTrigger: { trigger: ref.current, start: "top 70%", once: true },
       });
 
-      // Submit button elastic
       gsap.from("[data-contact-btn]", {
         scale: 0.7,
         opacity: 0,

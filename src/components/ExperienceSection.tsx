@@ -58,7 +58,6 @@ const ExperienceSection = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title clip reveal
       const titleEl = ref.current?.querySelector("[data-exp-title]");
       if (titleEl) {
         gsap.set(titleEl, { clipPath: "inset(0 100% 0 0)" });
@@ -70,7 +69,6 @@ const ExperienceSection = () => {
         });
       }
 
-      // Timeline line draws itself
       const line = ref.current?.querySelector("[data-exp-line]");
       if (line) {
         gsap.from(line, {
@@ -82,7 +80,6 @@ const ExperienceSection = () => {
         });
       }
 
-      // Timeline dots pop in
       gsap.from("[data-exp-dot]", {
         scale: 0,
         duration: 0.5,
@@ -91,7 +88,6 @@ const ExperienceSection = () => {
         scrollTrigger: { trigger: ref.current, start: "top 75%", once: true },
       });
 
-      // Cards alternate slide from left/right
       const cards = ref.current?.querySelectorAll("[data-exp-card]");
       cards?.forEach((card, i) => {
         gsap.from(card, {
@@ -108,7 +104,6 @@ const ExperienceSection = () => {
         });
       });
 
-      // Tags pop in with stagger per card
       cards?.forEach((card) => {
         const tags = card.querySelectorAll("[data-exp-tag]");
         gsap.from(tags, {
@@ -135,13 +130,11 @@ const ExperienceSection = () => {
           Esperienza
         </h2>
         <div className="relative">
-          {/* Timeline line */}
           <div data-exp-line className="hidden md:block absolute left-8 top-0 bottom-0 w-px bg-border" />
 
           <div className="flex flex-col gap-8">
             {experiences.map((exp, i) => (
               <div key={i} className="relative md:pl-20">
-                {/* Dot */}
                 <div data-exp-dot className="hidden md:flex absolute left-6 top-5 w-5 h-5 rounded-full border-2 border-primary bg-background items-center justify-center">
                   <div className="w-2 h-2 rounded-full bg-primary" />
                 </div>

@@ -10,7 +10,7 @@ const projects = [
   {
     title: "Restyling sito web della Fitup",
     description: "Ho voluto rifare il design del sito web della Fitup per renderlo più moderno e responsive.",
-    tags: ["Vue.js", "Tailwind CSS", "GSAP", "Responsive Design"],
+    tags: ["Vue.js", "Tailwind CSS", "Gsap", "Responsive Design"],
     image: "/image/projects/fitup-restyle.webp",
     linkCode: "https://github.com/simonecodarin/restyling_sito_fitup",
     linkDemo: "https://restyling-site-fitup.netlify.app/",
@@ -19,7 +19,7 @@ const projects = [
   {
     title: "Film scope",
     description: "Web app per la ricerca di film tramite API di TMDB. Include filtri per genere e la gestione di una watchlist personale salvata su LocalStorage.",
-    tags: ["Vue.js", "Tailwind CSS", "GSAP", "Responsive Design", "Local Storage"],
+    tags: ["Vue.js", "Tailwind CSS", "Gsap", "Responsive Design", "Local Storage"],
     image: "/image/projects/film-scope.webp",
     linkCode: "https://github.com/simonecodarin/film-scope",
     linkDemo: "https://film-scope.netlify.app/",
@@ -59,11 +59,9 @@ const ProjectCard = ({
       data-project-card
       className="glass-card overflow-hidden group"
     >
-      {/* Top gradient banner — will be replaced with project screenshots */}
       <div
         className={`h-44 sm:h-52 bg-gradient-to-br ${project.color} flex items-center justify-center relative overflow-hidden`}
       >
-        {/* Immagine di sfondo della card */}
         <div
           className={`absolute inset-0 opacity-[1] hover:opacity-[0.8] transition-opacity duration-300 bg-cover bg-center`}
           onClick={() => !project.placeholder && project.linkDemo && window.open(project.linkDemo, "_blank")}
@@ -84,7 +82,6 @@ const ProjectCard = ({
         )}
       </div>
 
-      {/* Content */}
       <div className="p-6">
         <h3
           className={`font-bold text-base mb-2 ${
@@ -121,7 +118,6 @@ const ProjectsSection = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title clip reveal
       const titleEl = ref.current?.querySelector("[data-projects-title]");
       if (titleEl) {
         gsap.set(titleEl, { clipPath: "inset(0 100% 0 0)" });
@@ -143,7 +139,6 @@ const ProjectsSection = () => {
         scrollTrigger: { trigger: ref.current, start: "top 80%", once: true },
       });
 
-      // Cards stagger from below with scale
       gsap.from("[data-project-card]", {
         y: 60,
         opacity: 0,
@@ -159,7 +154,6 @@ const ProjectsSection = () => {
         },
       });
 
-      // Tags pop in after cards
       const cards = ref.current?.querySelectorAll("[data-project-card]");
       cards?.forEach((card) => {
         gsap.from(card.querySelectorAll("[data-project-tag]"), {

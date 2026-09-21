@@ -45,7 +45,6 @@ const HeroSection = () => {
   const [charIndex, setCharIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
 
-  // Typing effect
   useEffect(() => {
     const current = TYPING_TEXTS[textIndex];
     const timeout = setTimeout(
@@ -72,12 +71,10 @@ const HeroSection = () => {
     return () => clearTimeout(timeout);
   }, [charIndex, deleting, textIndex]);
 
-  // Rich GSAP entrance choreography
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ delay: 0.3 });
 
-      // Background orbs float in
       tl.from("[data-hero-orb]", {
         scale: 0,
         opacity: 0,
@@ -86,7 +83,6 @@ const HeroSection = () => {
         stagger: 0.2,
       }, 0);
 
-      // Name slides up with rotation
       tl.from("[data-hero-name]", {
         yPercent: 120,
         rotateX: -50,
@@ -95,7 +91,6 @@ const HeroSection = () => {
         ease: "power3.out",
       }, 0.2);
 
-      // H1 split word reveal
       tl.from("[data-hero-word]", {
         yPercent: 110,
         opacity: 0,
@@ -105,7 +100,6 @@ const HeroSection = () => {
         ease: "power3.out",
       }, 0.4);
 
-      // Typing area
       tl.from("[data-hero-typing]", {
         opacity: 0,
         y: 10,
@@ -113,7 +107,6 @@ const HeroSection = () => {
         ease: "power2.out",
       }, 0.9);
 
-      // Description chars fade in
       tl.from("[data-hero-desc]", {
         opacity: 0,
         y: 20,
@@ -122,7 +115,6 @@ const HeroSection = () => {
         ease: "power3.out",
       }, 1);
 
-      // Buttons elastic entrance
       tl.from("[data-hero-btn]", {
         scale: 0.8,
         opacity: 0,
@@ -132,7 +124,6 @@ const HeroSection = () => {
         ease: "back.out(1.7)",
       }, 1.2);
 
-      // Scroll indicator bounce
       tl.from("[data-hero-scroll]", {
         opacity: 0,
         y: -10,
@@ -140,7 +131,6 @@ const HeroSection = () => {
         ease: "power2.out",
       }, 1.5);
 
-      // Floating orbs continuous animation
       gsap.to("[data-hero-orb]", {
         y: "random(-20, 20)",
         x: "random(-15, 15)",
@@ -154,7 +144,6 @@ const HeroSection = () => {
         },
       });
 
-      // Scroll indicator pulsing
       gsap.to("[data-hero-scroll]", {
         y: 8,
         duration: 1.2,
@@ -163,7 +152,6 @@ const HeroSection = () => {
         ease: "sine.inOut",
       });
 
-      // Parallax on scroll for hero content
       gsap.to("[data-hero-content]", {
         y: 100,
         opacity: 0.3,
@@ -195,7 +183,6 @@ const HeroSection = () => {
         />
         <div
           data-hero-orb
-          // className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-[hsl(190,70%,50%)]/[0.04] blur-3xl"
           className="absolute bottom-1/4 left-1/4 w-[min(400px,90vw)] h-[min(400px,90vw)] rounded-full bg-[hsl(190,70%,50%)]/[0.04] blur-3xl"
         />
         <div
@@ -257,7 +244,6 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Scroll indicator */}
         <div data-hero-scroll className="mt-16 flex flex-col items-center gap-1 text-muted-foreground">
           <span className="text-xs font-medium tracking-wider uppercase">Scorri</span>
           <div className="w-5 h-8 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center pt-1.5">

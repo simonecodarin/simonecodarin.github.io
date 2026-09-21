@@ -64,7 +64,6 @@ const tiers: PricingTier[] = [
   },
 ];
 
-// Segnaposto: sostituisci con le tue condizioni reali.
 const notes = [
   {
     icon: Globe,
@@ -85,7 +84,6 @@ const PricingSection = () => {
     const cards = sectionRef.current?.querySelectorAll("[data-pricing-card]");
     if (!cards || cards.length === 0) return;
 
-    // Chi preferisce meno movimento vede le card subito, senza animazione
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       gsap.set(cards, { opacity: 1 });
       return;
@@ -178,11 +176,6 @@ const PricingSection = () => {
                 <span className={tier.pricePrefix ? "text-5xl" : "text-3xl"}>
                   {tier.price}
                 </span>
-                {/* {tier.priceSuffix && (
-                  <span className={`text-sm font-medium ${muted}`}>
-                    {tier.priceSuffix}
-                  </span>
-                )} */}
               </p>
               <p className={`text-sm mt-2 ${muted}`}>{tier.delivery}</p>
 
@@ -220,7 +213,6 @@ const PricingSection = () => {
                 ))}
               </ul>
 
-              {/* data-package: leggilo nel form per sapere quale card ha generato la richiesta */}
               <a
                 href="#contact"
                 data-package={tier.id}

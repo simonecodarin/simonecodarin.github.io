@@ -34,7 +34,6 @@ const EducationSection = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title clip reveal
       const titleEl = ref.current?.querySelector("[data-edu-title]");
       if (titleEl) {
         gsap.set(titleEl, { clipPath: "inset(0 100% 0 0)" });
@@ -46,7 +45,6 @@ const EducationSection = () => {
         });
       }
 
-      // Cards flip in
       gsap.from("[data-edu-card]", {
         rotateY: -20,
         x: -50,
@@ -57,7 +55,6 @@ const EducationSection = () => {
         scrollTrigger: { trigger: ref.current, start: "top 78%", once: true },
       });
 
-      // Icons spin in
       gsap.from("[data-edu-icon]", {
         scale: 0,
         rotation: -270,

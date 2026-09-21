@@ -264,7 +264,6 @@ export const MagneticWrap = ({
 }) => {
   const ref = useMagnetic(strength);
   return (
-    // @ts-ignore
     <Tag ref={ref} className={className} {...props}>
       {children}
     </Tag>
