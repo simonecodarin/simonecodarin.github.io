@@ -16,8 +16,6 @@ function parseRgb(str) {
   return { r, g, b, a };
 }
 
-// Capisce se il sito è in dark mode: classe/attributo su <html> o <body>,
-// con fallback sulla luminanza dello sfondo reale e poi sulle preferenze di sistema.
 function detectDark() {
   const roots = [document.documentElement, document.body];
   const isMarked = (val) =>
@@ -47,7 +45,6 @@ export default function AIChatWidget() {
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
-  // Segue il tema del sito, sia all'avvio sia quando cambia a runtime
   useEffect(() => {
     const sync = () => setIsDark(detectDark());
     sync();
@@ -86,8 +83,8 @@ export default function AIChatWidget() {
     setLoading(true);
 
     const API_URL = window.location.hostname === 'simonecodarin.github.io'
-      ? 'https://simonecodarin.netlify.app/.netlify/functions/chat'
-      : '/.netlify/functions/chat';
+      ? 'https://simonecodarin.netlify.app/api/chat'
+      : '/api/chat';
 
     try {
       const res = await fetch(API_URL, {
@@ -100,13 +97,17 @@ export default function AIChatWidget() {
       if (res.ok) {
         setMessages((prev) => [...prev, { sender: 'ai', text: data.reply }]);
       } else {
+        const friendly = [400, 429, 503].includes(res.status) && data.error;
         setMessages((prev) => [
           ...prev,
-          { sender: 'ai', text: "Ops, c'è stato un piccolo problema di connessione. Riprova tra poco." }
+          { sender: 'ai', text: friendly || "Ops, c'è stato un piccolo problema di connessione. Riprova tra poco." }
         ]);
       }
     } catch (err) {
-      setMessages((prev) => [...prev, { sender: 'ai', text: 'Errore di rete. Controlla la connessione.' }]);
+      setMessages((prev) => [
+        ...prev,
+        { sender: 'ai', text: 'Errore di rete o troppe richieste ravvicinate. Riprova tra poco.' }
+      ]);
     } finally {
       setLoading(false);
     }
@@ -442,6 +443,7 @@ export default function AIChatWidget() {
               type="text"
               className="simai-input"
               value={input}
+              maxLength={500}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Chiedi qualcosa sui progetti..."
               aria-label="Scrivi un messaggio"

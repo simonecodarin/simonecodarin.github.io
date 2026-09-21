@@ -1,15 +1,33 @@
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenAI, ThinkingLevel } from '@google/genai';
+import { getStore } from '@netlify/blobs';
+
+
+export const config = {
+  path: '/api/chat',
+  rateLimit: {
+    windowLimit: 10,
+    windowSize: 60,
+    aggregateBy: ['ip', 'domain'], 
+  },
+};
 
 const MODEL = process.env.GEMINI_MODEL || 'gemini-3.5-flash';
 
 const ALLOWED_ORIGINS = [
   'https://simonecodarin.github.io',
+  'https://simonecodarin.netlify.app',
   'http://localhost:5173',
+  'http://localhost:8888',
 ];
 
-const MAX_MESSAGE_CHARS = 500;  
-const MAX_TURN_CHARS = 1500;    
-const MAX_HISTORY_TURNS = 8;    
+const MAX_BODY_BYTES = 8_000;
+const MAX_MESSAGE_CHARS = 500;
+const MAX_TURN_CHARS = 1000;
+const MAX_HISTORY_TURNS = 6;
+const MAX_OUTPUT_TOKENS = 800;
+const GEMINI_TIMEOUT_MS = 20_000;
+
+const DAILY_LIMIT = Number(process.env.DAILY_REQUEST_LIMIT) || 150;
 
 const FALLBACK_REPLY =
   'Non sono riuscito a rispondere. Puoi riformulare la domanda o scrivere a Simone dal form nella sezione Contatti?';
@@ -95,30 +113,44 @@ const SYSTEM_INSTRUCTION = buildSystemInstruction(tiers, PROFILO);
 
 let client;
 function getClient() {
-  if (!client) client = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+  if (!client) {
+    client = new GoogleGenAI({
+      apiKey: process.env.GEMINI_API_KEY,
+      httpOptions: { timeout: GEMINI_TIMEOUT_MS },
+    });
+  }
   return client;
 }
 
-function corsFor(event) {
-  const origin = event.headers?.origin || '';
+function corsHeaders(origin) {
   return {
-    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Origin': origin,
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Max-Age': '86400',
     Vary: 'Origin',
   };
 }
 
-const hits = new Map();
-function tooManyRequests(ip) {
-  const now = Date.now();
-  const windowMs = 60_000;
-  const max = 10;
-  const recent = (hits.get(ip) || []).filter((t) => now - t < windowMs);
-  recent.push(now);
-  hits.set(ip, recent);
-  if (hits.size > 500) hits.clear();
-  return recent.length > max;
+function respond(status, body, extraHeaders = {}) {
+  return new Response(body === null ? null : JSON.stringify(body), {
+    status,
+    headers: {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-store',
+      'X-Content-Type-Options': 'nosniff',
+      ...extraHeaders,
+    },
+  });
+}
+
+async function consumeDailyBudget() {
+  const store = getStore({ name: 'chat-usage', consistency: 'strong' });
+  const key = `day-${new Date().toISOString().slice(0, 10)}`;
+  const used = Number(await store.get(key)) || 0;
+  if (used >= DAILY_LIMIT) return false;
+  await store.set(key, String(used + 1));
+  return true;
 }
 
 function buildContents(message, history) {
@@ -142,69 +174,96 @@ function buildContents(message, history) {
   return turns;
 }
 
-const json = (statusCode, headers, body) => ({
-  statusCode,
-  headers,
-  body: JSON.stringify(body),
-});
+export default async (req) => {
+  const origin = req.headers.get('origin') || '';
 
-export const handler = async (event) => {
-  const headers = corsFor(event);
+  if (!ALLOWED_ORIGINS.includes(origin)) {
+    return respond(403, { error: 'Origine non autorizzata' });
+  }
+  const cors = corsHeaders(origin);
 
-  // Preflight
-  if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers, body: '' };
+  // 2. Preflight CORS
+  if (req.method === 'OPTIONS') {
+    return new Response(null, { status: 204, headers: cors });
   }
 
-  if (event.httpMethod !== 'POST') {
-    return json(405, headers, { error: 'Method not allowed' });
+  if (req.method !== 'POST') {
+    return respond(405, { error: 'Metodo non consentito' }, cors);
   }
 
   if (!process.env.GEMINI_API_KEY) {
     console.error('GEMINI_API_KEY mancante');
-    return json(500, headers, { error: 'Errore interno del server' });
+    return respond(500, { error: 'Errore interno del server' }, cors);
   }
 
-  const ip =
-    event.headers?.['x-nf-client-connection-ip'] ||
-    event.headers?.['x-forwarded-for']?.split(',')[0]?.trim() ||
-    'unknown';
-  if (tooManyRequests(ip)) {
-    return json(429, headers, { error: 'Troppe richieste: riprova tra un minuto.' });
+  if (!(req.headers.get('content-type') || '').includes('application/json')) {
+    return respond(415, { error: 'Richiesta non valida' }, cors);
+  }
+
+  const declaredLength = Number(req.headers.get('content-length'));
+  if (declaredLength > MAX_BODY_BYTES) {
+    return respond(413, { error: 'Richiesta troppo grande' }, cors);
+  }
+
+  let raw;
+  try {
+    raw = await req.text();
+  } catch {
+    return respond(400, { error: 'Richiesta non valida' }, cors);
+  }
+  if (raw.length > MAX_BODY_BYTES) {
+    return respond(413, { error: 'Richiesta troppo grande' }, cors);
   }
 
   let payload;
   try {
-    payload = JSON.parse(event.body || '{}');
+    payload = JSON.parse(raw || '{}');
   } catch {
-    return json(400, headers, { error: 'Richiesta non valida' });
+    return respond(400, { error: 'Richiesta non valida' }, cors);
   }
 
-  const message = typeof payload.message === 'string' ? payload.message.trim() : '';
+  const message = typeof payload?.message === 'string' ? payload.message.trim() : '';
   if (!message) {
-    return json(400, headers, { error: 'Messaggio mancante' });
+    return respond(400, { error: 'Messaggio mancante' }, cors);
   }
   if (message.length > MAX_MESSAGE_CHARS) {
-    return json(400, headers, {
-      error: `Messaggio troppo lungo (massimo ${MAX_MESSAGE_CHARS} caratteri)`,
-    });
+    return respond(
+      400,
+      { error: `Messaggio troppo lungo (massimo ${MAX_MESSAGE_CHARS} caratteri)` },
+      cors
+    );
   }
 
+  try {
+    const allowed = await consumeDailyBudget();
+    if (!allowed) {
+      return respond(
+        503,
+        { error: "L'assistente ha raggiunto il limite giornaliero. Scrivi a Simone dal form nella sezione Contatti." },
+        cors
+      );
+    }
+  } catch (error) {
+    console.error('Contatore giornaliero non disponibile:', error?.message);
+    return respond(503, { error: 'Assistente temporaneamente non disponibile.' }, cors);
+  }
+
+  // 5. Chiamata al modello
   try {
     const response = await getClient().models.generateContent({
       model: MODEL,
       contents: buildContents(message, payload.history),
       config: {
         systemInstruction: SYSTEM_INSTRUCTION,
-        temperature: 0.4,
-        maxOutputTokens: 800,
+        maxOutputTokens: MAX_OUTPUT_TOKENS,
+        thinkingConfig: { thinkingLevel: ThinkingLevel.LOW },
       },
     });
 
     const reply = response.text?.trim() || FALLBACK_REPLY;
-    return json(200, headers, { reply });
+    return respond(200, { reply }, cors);
   } catch (error) {
-    console.error('Errore IA:', error);
-    return json(500, headers, { error: 'Errore interno del server' });
+    console.error('Errore IA:', error?.status, error?.message);
+    return respond(500, { error: 'Errore interno del server' }, cors);
   }
 };

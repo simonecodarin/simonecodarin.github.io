@@ -25,3 +25,9 @@
   for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+[dev]
+  framework = "#custom"
+  command = "npm run dev -- --port 5173 --strictPort"
+  targetPort = 5173
+  port = 8888
