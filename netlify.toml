@@ -11,7 +11,7 @@
   node_bundler = "esbuild"
   external_node_modules = ["@google/genai"]
 
-  [[headers]]
+[[headers]]
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
@@ -31,3 +31,6 @@
   command = "npm run dev -- --port 5173 --strictPort"
   targetPort = 5173
   port = 8888
+
+[build.environment]
+  NODE_VERSION = "22"
