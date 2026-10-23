@@ -34,6 +34,16 @@ const projects = [
     linkDemo: "https://full-pokedex.netlify.app/",
     color: "from-primary/10 to-[hsl(260,60%,55%)]/10",
   },
+    {
+    title: "Budget",
+    description: "App full-stack per tenere sotto controllo entrate e spese: accesso con codice OTP via email, ricorrenze automatiche e gestione di una famiglia con spese condivise. Frontend in Vue, backend in .NET con PostgreSQL.",
+    tags: ["Vue.js", "Naive UI", ".NET", "Render", "Neon", "Responsive Design"],
+    image: "/image/projects/budget.webp",
+    linkCode: "https://github.com/simonecodarin/personal_wallet",
+    linkCodeBackend: "https://github.com/simonecodarin/budget-backend/tree/main/backend/GestionaleSpesaApi",
+    linkDemo: "https://portafoglio-personale.netlify.app/",
+    color: "from-[hsl(150,50%,40%)]/15 to-primary/10",
+  },
   {
     title: "In Arrivo...",
     description:
