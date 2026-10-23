@@ -74,25 +74,54 @@ const ProjectCard = ({
       >
         <div
           className={`absolute inset-0 opacity-[1] hover:opacity-[0.8] transition-opacity duration-300 bg-cover bg-center`}
-          onClick={() => !project.placeholder && project.linkDemo && window.open(project.linkDemo, "_blank")}
-          style={project.image ? { backgroundImage: `url(${project.image})` } : undefined}
+          onClick={() =>
+            !project.placeholder &&
+            project.linkDemo &&
+            window.open(project.linkDemo, "_blank")
+          }
+          style={
+            project.image
+              ? { backgroundImage: `url(${project.image})` }
+              : undefined
+          }
         />
         <span className="text-4xl font-black text-foreground/[0.06] tracking-tighter select-none">
           {String(index + 1).padStart(2, "0")}
         </span>
         {!project.placeholder && (
           <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <button className="p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors" onClick={() => window.open(project.linkDemo, "_blank")} aria-label="Apri demo live">
-              <ExternalLink size={14} />
-            </button>
-            <button className="p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors" 
-              onClick={() => window.open(project.linkCode, "_blank")} aria-label="Visualizza codice frontend" title="Visualizza codice frontend">
-              <Github size={14} />
-            </button>
-            <button className="p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors" 
-              onClick={() => window.open(project.linkCodeBackend, "_blank")} aria-label="Visualizza codice backend" title="Visualizza codice backend">
-              <Github size={14} />
-            </button>
+            {project.linkDemo && (
+              <button
+                className="p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors"
+                onClick={() => window.open(project.linkDemo, "_blank")}
+                aria-label="Apri demo live"
+                title="Apri demo live"
+              >
+                <ExternalLink size={14} />
+              </button>
+            )}
+
+            {project.linkCode && (
+              <button
+                className="p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors"
+                onClick={() => window.open(project.linkCode, "_blank")}
+                aria-label="Visualizza codice frontend"
+                title="Visualizza codice frontend"
+              >
+                <Github size={14} />
+              </button>
+            )}
+
+            {project.linkCodeBackend && (
+              <button
+                className="p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors"
+                onClick={() => window.open(project.linkCodeBackend, "_blank")}
+                aria-label="Visualizza codice backend"
+                title="Visualizza codice backend"
+              >
+                <Github size={14} />
+              </button>
+            )}
           </div>
         )}
       </div>
