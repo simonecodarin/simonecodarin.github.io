@@ -34,7 +34,7 @@ const projects = [
     linkDemo: "https://full-pokedex.netlify.app/",
     color: "from-primary/10 to-[hsl(260,60%,55%)]/10",
   },
-    {
+  {
     title: "Budget",
     description: "App full-stack per tenere sotto controllo entrate e spese: accesso con codice OTP via email, ricorrenze automatiche e gestione di una famiglia con spese condivise. Frontend in Vue, backend in .NET con PostgreSQL.",
     tags: ["Vue.js", "Naive UI", ".NET", "Render", "Neon", "Responsive Design"],
@@ -85,7 +85,12 @@ const ProjectCard = ({
             <button className="p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors" onClick={() => window.open(project.linkDemo, "_blank")} aria-label="Apri demo live">
               <ExternalLink size={14} />
             </button>
-            <button className="p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors" onClick={() => window.open(project.linkCode, "_blank")} aria-label="Visualizza codice">
+            <button className="p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors" 
+              onClick={() => window.open(project.linkCode, "_blank")} aria-label="Visualizza codice frontend" title="Visualizza codice frontend">
+              <Github size={14} />
+            </button>
+            <button className="p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors" 
+              onClick={() => window.open(project.linkCodeBackend, "_blank")} aria-label="Visualizza codice backend" title="Visualizza codice backend">
               <Github size={14} />
             </button>
           </div>
